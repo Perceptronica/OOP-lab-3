@@ -4,6 +4,9 @@
 #pragma once
 
 #include <cmath>
+#include <vector>
+
+using namespace std;
 
 #ifndef POINT_HPP
 #define POINT_HPP
