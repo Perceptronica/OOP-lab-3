@@ -26,16 +26,8 @@ void RectangleValidator::validate(vector<Point> & _points) const {
     for (int i = 0; i < _points.size(); ++i) {
         s.push_back(Segment(_points[i], _points[(i + 1) % _points.size()]));
     }
-    if (!(abs(s[0] ^ s[2]) < EPS && 
-          abs(s[1] ^ s[3]) < EPS &&
-          abs(s[0] ^ s[1]) > 1 - EPS &&
-          abs(s[0] ^ s[1]) < 1 + EPS &&
-          abs(s[1] ^ s[2]) > 1 - EPS &&
-          abs(s[1] ^ s[2]) < 1 + EPS &&
-          abs(s[2] ^ s[3]) > 1 - EPS &&
-          abs(s[2] ^ s[3]) < 1 + EPS &&
-          abs(s[3] ^ s[0]) > 1 - EPS &&
-          abs(s[3] ^ s[0]) < 1 + EPS)) {
+    // TODO: переписать валидацию
+    if () {
         throw logic_error("The figure is not a rectangle");
     }
 }
