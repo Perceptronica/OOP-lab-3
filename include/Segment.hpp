@@ -1,6 +1,7 @@
 // (c) anton perceptronica, 2023
 
 #include "Point.hpp"
+#include <stdexcept>
 
 class Segment {
 private:
@@ -9,8 +10,8 @@ private:
     Point dr; // отрезок-вектор от начала
               // координат
 public:
-    Segment(): r1(Point(0, 0)), r2(Point(0, 0)) {};
-    Segment(Point r1_, Point r2_): r1(r1_), r2(r2_) {};
+    // дефолтного отрезка нет.
+    Segment(Point r1_, Point r2_);
 
     Segment(const Segment& other): r1(other.r1), r2(other.r2) {};
     Segment(Segment&& other) noexcept;
@@ -19,7 +20,14 @@ public:
 
     ~Segment() = default;
 
-    Point getR1() const;
-    Point getR2() const;
-    Point getDR() const;
+    Point getR1() const { return r1; };
+    Point getR2() const { return r2; };
+    Point getDR() const { return dr; };
+    
+    bool operator||(const Segment& other) const; // parallel
+    bool operator%(const Segment& other) const;  // 90 grad
+    double length() const { return dr.length(); };
 };
+
+double operator*(const Segment& s1, const Segment& s2);
+double operator^(const Segment& s1, const Segment& s2);
