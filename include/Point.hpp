@@ -34,13 +34,15 @@ public:
 
     bool operator==(const Point& other) const;
 
-    friend istream& operator>>(istream& in, Point& r);
-    friend ostream& operator<<(ostream& out, const Point& r);
+    void setX(double x) { this->x = x; }
+    void setY(double y) { this->y = y; }
 };
 
 double operator*(const Point& r1, const Point& r2);
 double operator^(const Point& r1, const Point& r2);
 
+istream& operator>>(istream& in, Point& r);
+ostream& operator<<(ostream& out, const Point& r);
 /*
 - конструктор по умолчанию
 - конструктор с параметрами
