@@ -14,7 +14,7 @@ using namespace std;
 
 class Figure {
 protected:
-    vector<Point> points;
+    vector<Point> points; 
     Point center;
     double area;
 
@@ -32,5 +32,8 @@ public:
     virtual Figure operator=(Figure && rhs);
     virtual bool operator==(const Figure & rhs) const;
 };
+
+ostream& operator<<(ostream & out, const Figure & figure);
+istream& operator>>(istream & in, Figure & figure);
 
 #endif

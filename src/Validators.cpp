@@ -2,6 +2,10 @@
 
 #include "Validators.hpp"
 
-void RectangleValidator::validate(vector<Point> & _points) const {
+void FigureValidator::validate(vector<Point> & _points) const {
     
+}
+
+void RectangleValidator::validate(vector<Point> & _points) const {
+
 }

@@ -4,6 +4,7 @@
 #pragma once
 
 #include <cmath>
+#include <iostream>
 #include <vector>
 
 using namespace std;
@@ -15,6 +16,7 @@ class Point{
 private:
     double x;
     double y;
+    friend istream& operator>>(istream & in, Point & r);
 
 public:
     Point() : x(0), y(0) {};
@@ -40,5 +42,7 @@ public:
 // так как точка дает радиус-вектор, то можем определить произведения:
 double operator*(const Point & r1, const Point & r2); // скалярное
 double operator^(const Point & r1, const Point & r2); // векторное
+
+ostream& operator<<(ostream & out, const Point & r);
 
 #endif

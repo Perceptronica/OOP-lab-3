@@ -1,12 +1,13 @@
 // (c) anton perceptronica, 2023
 
 #include "Point.hpp"
+#include "Constants.hpp"
 
 using namespace std;
 
 Point::Point(const Point & other) : x(other.x), y(other.y) {}
 
-Point::Point(Point && other) {
+Point::Point(Point && other) noexcept {
     x = other.x;
     y = other.y;
 
@@ -46,9 +47,8 @@ Point Point::operator=(Point && rhs) {
     return *this;
 }
 
-// TODO: rewrite with EPS!!!
 bool Point::operator==(const Point & rhs) const {
-    return x == rhs.x && y == rhs.y; 
+    return abs(x - rhs.x) < EPS && abs(y - rhs.y) < EPS; 
 }
 
 double operator*(const Point & r1, const Point & r2) {
@@ -57,4 +57,13 @@ double operator*(const Point & r1, const Point & r2) {
 
 double operator^(const Point & r1, const Point & r2) {
     return r1.getX() * r2.getY() - r1.getY() * r2.getX();
+}
+
+ostream & operator<<(ostream & out, const Point & r) {
+    out << "(" << r.getX() << ", " << r.getY() << ")";
+    return out;
+}
+istream & operator>>(istream & in, Point & r) {
+    in >> r.x >> r.y;
+    return in;
 }

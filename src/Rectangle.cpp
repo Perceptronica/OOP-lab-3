@@ -26,3 +26,11 @@ Rectangle::Rectangle(Rectangle && other) noexcept : Rectangle() {
     area = other.getArea();
     delete &other;
 }
+
+vector<Point> Rectangle::getPoints() const {
+    return points;
+}
+
+ostream & Rectangle::operator<<(ostream &out, const Rectangle &rct) {
+
+}
