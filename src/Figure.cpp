@@ -66,6 +66,7 @@ void Figure::calculateCenter() {
 }
 
 Figure::Figure(vector<Point>& _points) {
+    points.reserve(_points.size());
     points = _points;
     normalizePoints();
     calculateArea();
@@ -73,22 +74,37 @@ Figure::Figure(vector<Point>& _points) {
 }
 
 Figure::Figure(const Figure& other) {
+    points.reserve(other.points.size());
     points = other.points;
 }
 
 Figure::Figure(Figure&& other) noexcept {
+    points.reserve(other.points.size());
     points = other.points;
     other.points.clear();
 }
 
 Figure Figure::operator=(const Figure& other) {
     if (this == &other) return *this;
+    points.reserve(other.points.size());
     points = other.points;
     return *this;
 }
 Figure Figure::operator=(Figure&& other) noexcept {
     if (this == &other) return *this;
+    points.reserve(other.points.size());
     points = other.points;
     other.points.clear();
     return *this;
+}
+
+ostream& Figure::operator<<(ostream& out) {
+    out << "Points: ";
+    for (Point &p: points) {
+        out << p << "; ";
+    }
+    out << endl;
+    out << "Center: " << getCenter() << endl;
+    out << "Area: " << getArea() << endl;
+    return out;
 }

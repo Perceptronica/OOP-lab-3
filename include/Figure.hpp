@@ -27,4 +27,6 @@ public:
     virtual vector<Point> getPoints() const { return points; };
     virtual Point getCenter() const { return center; };
     virtual double getArea() const { return area; };
+
+    virtual ostream& operator<<(ostream& out);
 };
