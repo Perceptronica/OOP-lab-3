@@ -23,4 +23,14 @@ public:
     virtual void validate(vector<Point> & _points) const override;
 };
 
+class SquareValidator : public Validator {
+public:
+    virtual void validate(vector<Point> & _points) const override;
+};
+
+class TrapezoidValidator : public Validator {
+public:
+    virtual void validate(vector<Point> & _points) const override;
+};
+
 #endif

@@ -16,7 +16,6 @@ class Point{
 private:
     double x;
     double y;
-    friend istream& operator>>(istream & in, Point & r);
 
 public:
     Point() : x(0), y(0) {};
@@ -37,6 +36,8 @@ public:
     Point operator=(Point && rhs); 
 
     bool operator==(const Point & rhs) const;
+
+    friend istream& operator>>(istream & in, Point & r);
 };
 
 // так как точка дает радиус-вектор, то можем определить произведения:

@@ -20,3 +20,11 @@ ostream & operator<<(ostream &out, const Figure & figure) {
     out << "area: " << figure.getArea() << endl;
     return out;
 }
+
+istream & operator>>(istream & in, Figure & figure) {
+    vector <Point> r;
+    for (Point & point : r) {
+        in >> point;
+    }
+    return in;
+}

@@ -31,9 +31,10 @@ public:
     virtual Figure operator=(const Figure & rhs);
     virtual Figure operator=(Figure && rhs);
     virtual bool operator==(const Figure & rhs) const;
+
+    friend istream& operator>>(istream & in, Figure & figure);
 };
 
 ostream& operator<<(ostream & out, const Figure & figure);
-istream& operator>>(istream & in, Figure & figure);
 
 #endif
