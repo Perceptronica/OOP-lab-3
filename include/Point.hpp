@@ -34,8 +34,8 @@ public:
 
     bool operator==(const Point& other) const;
 
-    void setX(double x) { this->x = x; }
-    void setY(double y) { this->y = y; }
+    void setX(double x_) { this->x = x_; }
+    void setY(double y_) { this->y = y_; }
 };
 
 double operator*(const Point& r1, const Point& r2);

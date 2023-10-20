@@ -43,8 +43,10 @@ bool Point::operator==(const Point& other) const {
 }
 
 istream& operator>>(istream& in, Point& r) {
-    //double x_, y_;
-    //in >> r.setX(x) >> r.setY(y);
+    double x_, y_;
+    x_ = r.getX();
+    y_ = r.getY();
+    in >> x_ >> y_;
     return in;
 }
 
