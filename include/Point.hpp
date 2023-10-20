@@ -8,9 +8,6 @@
 
 using namespace std;
 
-#ifndef POINT_HPP
-#define POINT_HPP
-
 class Point {
 private:
     double x;
@@ -22,8 +19,8 @@ public:
     
     Point(const Point& other): x(other.x), y(other.y) {};
     Point(Point&& other) noexcept; 
-    Point& operator=(const Point& other);
-    Point& operator=(Point&& other) noexcept;
+    Point operator=(const Point& other);
+    Point operator=(Point&& other) noexcept;
 
     ~Point() = default;
 
@@ -34,8 +31,6 @@ public:
     Point operator+(const Point& other) const;
     Point operator-(const Point& other) const;
 };
-
-#endif
 
 /*
 - конструктор по умолчанию

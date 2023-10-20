@@ -9,14 +9,14 @@ Point::Point(Point&& other) noexcept {
     other.y = 0;
 }
 
-Point& Point::operator=(const Point& other) {
+Point Point::operator=(const Point& other) {
     if (this == &other) return *this;
     x = other.x;
     y = other.y;
     return *this;
 }
 
-Point& Point::operator=(Point&& other) noexcept {
+Point Point::operator=(Point&& other) noexcept {
     if (this == &other) return *this;
     x = other.x;
     y = other.y;
@@ -27,4 +27,12 @@ Point& Point::operator=(Point&& other) noexcept {
 
 double Point::length() const {
     return sqrt(getX() * getX() + getY() * getY());
+}
+
+Point Point::operator+(const Point& other) const {
+    return {x + other.x, y + other.y};
+}
+
+Point Point::operator-(const Point& other) const {
+    return {x - other.x, y - other.y};
 }
