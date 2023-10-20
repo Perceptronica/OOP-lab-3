@@ -36,3 +36,18 @@ Point Point::operator+(const Point& other) const {
 Point Point::operator-(const Point& other) const {
     return {x - other.x, y - other.y};
 }
+
+bool Point::operator==(const Point& other) const {
+    return abs(x - other.x) < EPS && 
+           abs(y - other.y) < EPS;
+}
+
+istream& operator>>(istream& in, Point& r) {
+    in >> r.x >> r.y;
+    return in;
+}
+
+ostream& operator<<(ostream& out, const Point& r) {
+    out << "(" << r.getX() << ", " << r.getY() << ")" << endl;
+    return out;
+}

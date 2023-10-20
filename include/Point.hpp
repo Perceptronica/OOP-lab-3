@@ -8,6 +8,8 @@
 
 using namespace std;
 
+const long double EPS = 1e-10;
+
 class Point {
 private:
     double x;
@@ -30,6 +32,11 @@ public:
 
     Point operator+(const Point& other) const;
     Point operator-(const Point& other) const;
+
+    bool operator==(const Point& other) const;
+
+    friend istream& operator>>(istream& in, Point& r);
+    friend ostream& operator<<(ostream& out, const Point& r);
 };
 
 /*
