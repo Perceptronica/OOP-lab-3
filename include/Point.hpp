@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include <cmath>
-#include <vector>
 
 using namespace std;
 
@@ -38,6 +37,9 @@ public:
     friend istream& operator>>(istream& in, Point& r);
     friend ostream& operator<<(ostream& out, const Point& r);
 };
+
+double operator*(const Point& r1, const Point& r2);
+double operator^(const Point& r1, const Point& r2);
 
 /*
 - конструктор по умолчанию

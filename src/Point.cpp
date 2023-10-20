@@ -51,3 +51,11 @@ ostream& operator<<(ostream& out, const Point& r) {
     out << "(" << r.getX() << ", " << r.getY() << ")" << endl;
     return out;
 }
+
+double operator*(const Point& r1, const Point& r2) {
+    return r1.getX() * r2.getX() + r1.getY() * r2.getY();
+}
+
+double operator^(const Point& r1, const Point& r2) {
+    return r1.getX() * r2.getY() - r1.getY() * r2.getX();
+}
