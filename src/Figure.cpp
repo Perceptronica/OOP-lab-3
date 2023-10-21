@@ -1,40 +1,19 @@
-// (c) anton perceptronica, 2023
+// (c) anton percePointronica, 2023
 
 #include "Figure.hpp"
 
-void Figure::normalizePoints() {
-    // алгоритм Грехема для вычисления выпуклой 
-    // оболочки множества точек => проверка выпуклости
-    // фигуры
-    Point r0 = points[0];
-    for (Point r : points) {
-        if (r.getX() < r0.getX() || 
-            ((abs(r.getX() - r0.getX()) < EPS) 
-            && r.getY() < r0.getY())) {
-                r0 = r;
-        }
-    }
-    sort(points.begin(), points.end(), [&](Point a, Point b){
-        return ((a - r0) ^ (b - r0)) > EPS;
-    });
+double angle(Point center, Point p) {
+    double dx {p.getX() - center.getX()};
+    double dy {p.getY() - center.getY()};
+    return atan2(dy, dx);
+}
 
-    vector<Point> hull;
-    for (Point p : points) {
-        // удаляем последнюю точку со стека, 
-        // пока она образует невыпуклость
-        while (hull.size() >= 2) {
-            Point new_vector = p - hull.back();
-            Point last_vector = hull.back() - hull[hull.size() - 2];
-            // если два последних вектора заворачивают 
-            // влево, удаляем последнюю точку
-            if ((new_vector ^ last_vector) > EPS)
-                hull.pop_back();
-            else
-                break;
-        }
-        hull.push_back(p);
-    }
-    points = hull;
+void Figure::normalizePoints() {
+    sort(points.begin(), points.end(), [&](const Point& p1, const Point& p2) {
+        double angle1 {angle(center, p1)};
+        double angle2 {angle(center, p2)};
+        return angle1 < angle2;
+    });
 }
 
 void Figure::calculateArea() {
@@ -42,9 +21,10 @@ void Figure::calculateArea() {
     if (n >= 3) {
         double s = 0;
         for (int i = 0; i < n; ++i) {
-            s += points[i] ^ points[(i + 1) % n];
+            s += (points[i] ^ points[(i + 1) % n]);
         } 
-        area = abs(s) / 2;
+        area = s / 2;
+        area = abs(area);
     } else {
         area = 0.0;
     }
@@ -68,26 +48,32 @@ void Figure::calculateCenter() {
 Figure::Figure(vector<Point>& _points) {
     points.reserve(_points.size());
     points = _points;
-    normalizePoints();
-    calculateArea();
     calculateCenter();
+    normalizePoints();
+    Validator::validate(points);
+    calculateArea();
+    type = "undefined";
 }
 
 Figure::Figure(const Figure& other) {
     points.reserve(other.points.size());
     points = other.points;
+    type = other.type;
+    //validator = other.validator;
 }
 
 Figure::Figure(Figure&& other) noexcept {
     points.reserve(other.points.size());
     points = other.points;
     other.points.clear();
+    type = other.type;
 }
 
 Figure Figure::operator=(const Figure& other) {
     if (this == &other) return *this;
     points.reserve(other.points.size());
     points = other.points;
+    type = other.type;
     return *this;
 }
 Figure Figure::operator=(Figure&& other) noexcept {
@@ -95,16 +81,17 @@ Figure Figure::operator=(Figure&& other) noexcept {
     points.reserve(other.points.size());
     points = other.points;
     other.points.clear();
+    type = other.type;
     return *this;
 }
 
-ostream& Figure::operator<<(ostream& out) {
+ostream& operator<<(ostream& out, const Figure& f) {
     out << "Points: ";
-    for (Point &p: points) {
+    for (Point &p: f.getPoints()) {
         out << p << "; ";
     }
-    out << endl;
-    out << "Center: " << getCenter() << endl;
-    out << "Area: " << getArea() << endl;
+    out << endl << "Type: " << f.getType() << ";" << endl;
+    out << "Center: " << f.getCenter() << ";" << endl;
+    out << "Area: " << f.getArea() << ";" << endl;
     return out;
 }

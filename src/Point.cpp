@@ -44,14 +44,14 @@ bool Point::operator==(const Point& other) const {
 
 istream& operator>>(istream& in, Point& r) {
     double x_, y_;
-    x_ = r.getX();
-    y_ = r.getY();
     in >> x_ >> y_;
+    r.setX(x_);
+    r.setY(y_);
     return in;
 }
 
 ostream& operator<<(ostream& out, const Point& r) {
-    out << "(" << r.getX() << ", " << r.getY() << ")" << endl;
+    out << "(" << r.getX() << ", " << r.getY() << ")";
     return out;
 }
 

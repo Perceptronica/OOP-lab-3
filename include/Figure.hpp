@@ -1,7 +1,10 @@
 // (c) anton perceptronica, 2023
 
+#pragma once
+
 #include "Point.hpp"
 #include "Segment.hpp"
+#include "Validators.hpp"
 #include <vector>
 #include <algorithm>
 
@@ -10,6 +13,8 @@ protected:
     vector<Point> points;
     double area;
     Point center;
+    string type;
+    //Validator validator = default;
 
     virtual void normalizePoints();
     virtual void calculateArea();
@@ -27,6 +32,7 @@ public:
     virtual vector<Point> getPoints() const { return points; };
     virtual Point getCenter() const { return center; };
     virtual double getArea() const { return area; };
-
-    virtual ostream& operator<<(ostream& out);
+    virtual string getType() const { return type; };
 };
+
+ostream& operator<<(ostream& out, const Figure& f);
