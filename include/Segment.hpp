@@ -31,3 +31,5 @@ public:
 
 double operator*(const Segment& s1, const Segment& s2);
 double operator^(const Segment& s1, const Segment& s2);
+
+double angle(const Segment& s1, const Segment& s2);
