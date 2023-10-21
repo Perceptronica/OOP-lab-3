@@ -1,4 +1,4 @@
-// (c) anton percePointronica, 2023
+// (c) anton percetronica, 2023
 
 #include "Figure.hpp"
 

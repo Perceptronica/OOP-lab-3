@@ -14,3 +14,13 @@ class RectangleValidator : public Validator {
 public:
     static void validate(const vector<Point>& _points);
 };
+
+class SquareValidator : public Validator {
+public:
+    static void validate(const vector<Point>& _points);
+};
+
+class Trapezoid : public Validator {
+public:
+    static void validate(const vector<Point>& _points);
+}

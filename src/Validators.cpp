@@ -2,6 +2,25 @@
 
 #include "Validators.hpp"
 
+bool PointsCoincide(const vector<Point>& _points) {
+    for (int i {1}; i < _points.size(); ++i) {
+        if (_points[i] == _points[i - 1]) return true;
+    }
+    return false;
+}
+
+bool isSquare(const vector<Point>& _points) {
+    vector<Segment> s;
+    int n = _points.size();
+    for (int i {0}; i < n; ++i) {
+        s.push_back(Segment(_points[i], 
+                              _points[(i + 1) % n]));
+    } 
+    return isRectangle(_points) &&
+           s[0].length() == s[1].length() &&
+           s[1].length() == s[2].length();
+}
+
 bool isRectangle(const vector<Point>& _points) {
     vector<Segment> s;
     int n = _points.size();
@@ -52,8 +71,12 @@ bool isConvex(const vector<Point>& _points) {
 }
 
 void Validator::validate(const vector<Point>& _points) {
-    if (!(isConvex(_points))) {
+    if (_points.size() != 4) {
+        throw logic_error("Task requires a four-point figure!");
+    } else if (!(isConvex(_points))) {
         throw logic_error("The figure is not convex!");
+    } else if (PointsCoincide(_points)) {
+        throw logic_error("Points coincide => not a 4-point figure!");
     }
 }
 
@@ -62,4 +85,17 @@ void RectangleValidator::validate(const vector<Point>& _points) {
         throw logic_error("The figure is convex but \
                            not a rectangle.");
     }
+}
+
+void SquareValidator::validate(const vector<Point>& _points) {
+    if (!(isRectangle(_points))) {
+        throw logic_error("The figure is convex but \
+                           not a rectangle.");
+    } else {
+
+    }
+}
+
+void TrapezoidValidator::validate(const vector<Point>& _points) {
+    //...
 }
