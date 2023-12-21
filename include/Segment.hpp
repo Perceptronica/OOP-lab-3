@@ -1,5 +1,7 @@
 // (c) anton perceptronica, 2023
 
+#pragma once
+
 #include "Point.hpp"
 #include <stdexcept>
 

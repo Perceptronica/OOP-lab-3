@@ -18,8 +18,8 @@ bool isRectangle(const vector<Point>& _points) {
         s.push_back(Segment(_points[i], 
                               _points[(i + 1) % n]));
     }
-    return s[0] % s[1] && s[1] % s[2] &&
-           s[2] % s[3] && s[3] % s[0];
+    return (s[0] % s[1]) && (s[1] % s[2]) &&
+           (s[2] % s[3]) && (s[3] % s[0]);
 }
 
 bool isSquare(const vector<Point>& _points) {
@@ -84,39 +84,31 @@ void Validator::validate(const vector<Point>& _points) {
 
 void RectangleValidator::validate(const vector<Point>& _points) {
     if(!(isRectangle(_points))) {
-        throw logic_error("The figure is convex but \
-                           not a rectangle.");
+        throw logic_error("The figure is convex but not a rectangle.");
     }
 }
 
 void SquareValidator::validate(const vector<Point>& _points) {
     if (!(isRectangle(_points))) {
         throw logic_error("The figure is convex but \
-                           not a rectangle.");
+                           not a rectangle/square.");
     } else {
-
+        if (!isSquare(_points)) {
+            throw logic_error("THe figure is a rectangle, not a square.");
+        }
     }
 }
 
 void TrapezoidValidator::validate(const vector<Point>& _points) {
-    if (isRectangle(_points)) { // когда все углы прямые
-        throw logic_error("The figure is not a trapezoid.");
-    } else {
-        // противолежащие углы не равны:
-        Segment s1(_points[0], _points[1]);
-        Segment s2(_points[1], _points[2]);
-        Segment s3(_points[2], _points[3]);
-        Segment s4(_points[3], _points[0]);
-        double angle1 = acos((s1 * s2)/(s1.length() * s2.length()) * 180 / PI);
-        double angle2 = acos((s3 * s4)/(s3.length() * s4.length()) * 180 / PI);
-        if (abs(angle1 - angle2) < EPS) {
-            throw logic_error("The figure is either a rombus, or\
-            parallelogram.");
-        } else {
-            if (!(((s1 || s3) && !(s2 || s4)) ||
-                (!(s1 || s3) && (s2 || s4)))) {
-                throw logic_error("The figure is not a trapezoid ");
-            }
-        }
+    // противолежащие углы не равны:
+    Segment s1(_points[0], _points[1]);
+    Segment s2(_points[1], _points[2]);
+    Segment s3(_points[2], _points[3]);
+    Segment s4(_points[3], _points[0]);
+    double angle1 = acos((s1 * s2)/(s1.length() * s2.length()) * 180 / PI);
+    double angle2 = acos((s3 * s4)/(s3.length() * s4.length()) * 180 / PI);
+    if (abs(angle1 - angle2) < EPS) {
+        throw logic_error("The figure is either a rombus, or\
+        parallelogram");
     }
 }

@@ -48,18 +48,16 @@ void Figure::calculateCenter() {
 Figure::Figure(vector<Point>& _points) {
     points.reserve(_points.size());
     points = _points;
-    calculateCenter();
     normalizePoints();
+    calculateCenter();
     Validator::validate(points);
     calculateArea();
-    type = "undefined";
 }
 
 Figure::Figure(const Figure& other) {
     points.reserve(other.points.size());
     points = other.points;
     type = other.type;
-    //validator = other.validator;
 }
 
 Figure::Figure(Figure&& other) noexcept {
@@ -76,6 +74,7 @@ Figure Figure::operator=(const Figure& other) {
     type = other.type;
     return *this;
 }
+
 Figure Figure::operator=(Figure&& other) noexcept {
     if (this == &other) return *this;
     points.reserve(other.points.size());

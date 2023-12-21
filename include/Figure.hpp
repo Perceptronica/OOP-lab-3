@@ -13,22 +13,22 @@ protected:
     vector<Point> points;
     double area;
     Point center;
-    string type;
-    //Validator validator = default;
-
-    virtual void normalizePoints();
-    virtual void calculateArea();
-    virtual void calculateCenter();
+    string type = "Figure";
 
 public:
+    Figure() = default;
     Figure(vector<Point>& _points);
     Figure(const Figure& other);
     Figure(Figure&& other) noexcept;
     Figure operator=(const Figure& other);
     Figure operator=(Figure&& other) noexcept;
 
-    ~Figure() = default;
-    
+    virtual ~Figure() {};
+
+    virtual void normalizePoints();
+    virtual void calculateArea();
+    virtual void calculateCenter();
+
     virtual vector<Point> getPoints() const { return points; };
     virtual Point getCenter() const { return center; };
     virtual double getArea() const { return area; };

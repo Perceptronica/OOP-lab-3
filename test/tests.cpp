@@ -9,7 +9,15 @@
 
 using namespace std;
 
-vector<Point> vp = {Point(1,1), Point(3,1), Point(2,2), Point(2,0)};
+vector<Point> vp1 = {Point(1,1), Point(3,1), Point(2,2), Point(2,0)};
+/*
+vector<Point> vp2 = {Point(495.2721172944027, 262.23552428281886),
+                     Point(294.2187380055482, 759.8780598930572),
+                     Point(553.5228506981114, 53.54830332142946),
+                     Point(640.5154073575933, 417.8981638989818)};
+*/
+
+
 vector<Point> vnc = {Point(2, 3), Point(1, -1), Point(2, -2), Point(-2, -2)};
 
 // обработка исключений для фигуры в общем
@@ -27,7 +35,7 @@ TEST_P(FigureConvexityCheck, Convexity) {
 INSTANTIATE_TEST_CASE_P(
     Convexity,
     FigureConvexityCheck,
-    testing::Values(Figure(vp))
+    testing::Values(Figure(vp1))
 );
 
 TEST_P(FigureNonConvexityCheck, NonConvexity) {
@@ -41,3 +49,4 @@ INSTANTIATE_TEST_CASE_P(
     FigureNonConvexityCheck,
     testing::Values(vnc)
 );
+

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-const long double EPS = 1e-10;
+const long double EPS = 1e-6;
 
 class Point {
 private:
@@ -36,13 +36,15 @@ public:
 
     void setX(double x_) { this->x = x_; }
     void setY(double y_) { this->y = y_; }
+
+    friend istream& operator>>(istream& in, Point& r);
+    friend ostream& operator<<(ostream& out, const Point& r);
 };
 
 double operator*(const Point& r1, const Point& r2);
 double operator^(const Point& r1, const Point& r2);
 
-istream& operator>>(istream& in, Point& r);
-ostream& operator<<(ostream& out, const Point& r);
+
 /*
 - конструктор по умолчанию
 - конструктор с параметрами
