@@ -2,44 +2,50 @@
 
 #include "Segment.hpp"
 
-using namespace std;
-
 Segment::Segment(Point r1_, Point r2_) {
     if (r1_ == r2_) {
-        throw invalid_argument("Start and end of the segment \
-                                are the same!\n");
+        throw invalid_argument("Segment cannot be null!");
     }
-
+    
     r1 = r1_;
     r2 = r2_;
-
-    Point dr = r2 - r1; // откладываем такой же вектор от начала координат
-                        // для вычисления произведений
+    dr = r2 - r1;
 }
 
-bool Segment::operator||(const Segment & rhs) const {
-    return (getDR() ^ rhs.getDR()) == 0;
+Segment::Segment(Segment&& other) noexcept {
+    r1 = other.r1;
+    r2 = other.r2;
+    other.r1 = {0, 0};
+    other.r2 = {0, 0};
 }
 
-double Segment::length() const {
-    return dr.length();
+Segment Segment::operator=(const Segment& other) {
+    if (this == &other) return *this;
+    r1 = other.r1;
+    r2 = other.r2;
+    return *this;
+}
+Segment Segment::operator=(Segment&& other) {
+    if (this == &other) return *this;
+    r1 = other.r1;
+    r2 = other.r2;
+    other.r1 = {0, 0};
+    other.r2 = {0, 0};
+    return *this;
 }
 
-Point Segment::getR1() const{
-    return r1;
+bool Segment::operator||(const Segment& other) const {
+    return (getDR() ^ other.getDR()) < EPS;
 }
 
-Point Segment::getR2() const{
-    return r2;
+bool Segment::operator%(const Segment& other) const {
+    return (getDR() * other.getDR()) < EPS; 
 }
 
-Point Segment::getDR() const{
-    return dr;
-}
-
-double operator*(const Segment & s1, const Segment & s2) {
+double operator*(const Segment& s1, const Segment& s2) {
     return s1.getDR() * s2.getDR();
 }
-double operator^(const Segment & s1, const Segment & s2) {
+
+double operator^(const Segment& s1, const Segment& s2) {
     return s1.getDR() ^ s2.getDR();
 }

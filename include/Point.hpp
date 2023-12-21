@@ -1,49 +1,56 @@
 // (c) anton perceptronica, 2023
-// определяю точку
 
 #pragma once
 
-#include <cmath>
 #include <iostream>
-#include <vector>
+#include <cmath>
 
 using namespace std;
 
-#ifndef POINT_HPP
-#define POINT_HPP
+const long double EPS = 1e-6;
 
-class Point{
+class Point {
 private:
     double x;
     double y;
 
 public:
-    Point() : x(0), y(0) {};
-    Point(double x_, double y_) : x(x_), y(y_) {};
-    Point(const Point & other);
-    Point(Point && other) noexcept;
+    Point(): x(0.0), y(0.0) {};
+    Point(double x_, double y_): x(x_), y(y_) {};
+    
+    Point(const Point& other): x(other.x), y(other.y) {};
+    Point(Point&& other) noexcept; 
+    Point operator=(const Point& other);
+    Point operator=(Point&& other) noexcept;
 
     ~Point() = default;
 
-    double getX() const;
-    double getY() const;
-    double length() const; // длина радиус-вектора
+    double getX() const { return x; }
+    double getY() const { return y; }
+    double length() const; // так как точка ≃ радиус-вектор
 
-    Point operator+(const Point & rhs) const;
-    Point operator-(const Point & rhs) const;
+    Point operator+(const Point& other) const;
+    Point operator-(const Point& other) const;
 
-    Point operator=(const Point & rhs);
-    Point operator=(Point && rhs); 
+    bool operator==(const Point& other) const;
 
-    bool operator==(const Point & rhs) const;
+    void setX(double x_) { this->x = x_; }
+    void setY(double y_) { this->y = y_; }
 
-    friend istream& operator>>(istream & in, Point & r);
+    friend istream& operator>>(istream& in, Point& r);
+    friend ostream& operator<<(ostream& out, const Point& r);
 };
 
-// так как точка дает радиус-вектор, то можем определить произведения:
-double operator*(const Point & r1, const Point & r2); // скалярное
-double operator^(const Point & r1, const Point & r2); // векторное
+double operator*(const Point& r1, const Point& r2);
+double operator^(const Point& r1, const Point& r2);
 
-ostream& operator<<(ostream & out, const Point & r);
 
-#endif
+/*
+- конструктор по умолчанию
+- конструктор с параметрами
+- конструктор копирования (1)
+- конструктор перемещения (2)
+- оператор присваивания копированием (3)
+- оператор присваивания перемещением (4)
+- деструктор (5)
+*/

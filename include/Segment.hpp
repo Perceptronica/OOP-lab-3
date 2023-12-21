@@ -1,32 +1,37 @@
 // (c) anton perceptronica, 2023
-// определяю отрезок
 
 #pragma once
 
 #include "Point.hpp"
 #include <stdexcept>
 
-#ifndef SEGMENT_HPP
-#define SEGMENT_HPP
-
 class Segment {
 private:
     Point r1;
     Point r2;
-    Point dr;
-
+    Point dr; // отрезок-вектор от начала
+              // координат
 public:
-    Segment(Point r1, Point r2);
-    
-    Point getR1() const;
-    Point getR2() const;
-    Point getDR() const;
+    // дефолтного отрезка нет.
+    Segment(Point r1_, Point r2_);
 
-    bool operator||(const Segment & rhs) const;
-    double length() const;
+    Segment(const Segment& other): r1(other.r1), r2(other.r2) {};
+    Segment(Segment&& other) noexcept;
+    Segment operator=(const Segment& other);
+    Segment operator=(Segment&& other);
+
+    ~Segment() = default;
+
+    Point getR1() const { return r1; };
+    Point getR2() const { return r2; };
+    Point getDR() const { return dr; };
+    
+    bool operator||(const Segment& other) const; // parallel
+    bool operator%(const Segment& other) const;  // 90 grad
+    double length() const { return dr.length(); };
 };
 
-double operator*(const Segment & s1, const Segment & s2);
-double operator^(const Segment & s1, const Segment & s2);
+double operator*(const Segment& s1, const Segment& s2);
+double operator^(const Segment& s1, const Segment& s2);
 
-#endif
+double angle(const Segment& s1, const Segment& s2);

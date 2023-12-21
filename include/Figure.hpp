@@ -2,39 +2,37 @@
 
 #pragma once
 
-#include <iostream>
-#include <vector>
 #include "Point.hpp"
 #include "Segment.hpp"
-
-using namespace std;
-
-#ifndef FIGURE_HPP
-#define FIGURE_HPP
+#include "Validators.hpp"
+#include <vector>
+#include <algorithm>
 
 class Figure {
 protected:
-    vector<Point> points; 
-    Point center;
+    vector<Point> points;
     double area;
+    Point center;
+    string type = "Figure";
 
-    virtual Point calculateCenter(const vector<Point> & _points) const;
-    virtual double calculateArea(const vector<Point> & _points) const;
 public:
-    //Figure() = default;
-    Figure(const vector<Point> & points);
+    Figure() = default;
+    Figure(vector<Point>& _points);
+    Figure(const Figure& other);
+    Figure(Figure&& other) noexcept;
+    Figure operator=(const Figure& other);
+    Figure operator=(Figure&& other) noexcept;
 
-    virtual vector<Point> getPoints() const;
-    virtual Point getCenter() const;
-    virtual double getArea() const;
+    virtual ~Figure() {};
 
-    virtual Figure operator=(const Figure & rhs);
-    virtual Figure operator=(Figure && rhs);
-    virtual bool operator==(const Figure & rhs) const;
+    virtual void normalizePoints();
+    virtual void calculateArea();
+    virtual void calculateCenter();
 
-    friend istream& operator>>(istream & in, Figure & figure);
+    virtual vector<Point> getPoints() const { return points; };
+    virtual Point getCenter() const { return center; };
+    virtual double getArea() const { return area; };
+    virtual string getType() const { return type; };
 };
 
-ostream& operator<<(ostream & out, const Figure & figure);
-
-#endif
+ostream& operator<<(ostream& out, const Figure& f);

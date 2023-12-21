@@ -2,35 +2,31 @@
 
 #pragma once
 
-#include "Point.hpp"
+#include "Figure.hpp"
+#include <vector>
 
-
-#ifndef VALIDATORS_HPP
-#define VALIDATORS_HPP
+bool isConvex(const vector<Point>& _points);
+int getOrientation(const Point& p1, const Point& p2, const Point& p3);
+bool isSquare(const vector<Point>& _points);
+bool isRectangle(const vector<Point>& _points);
+bool PointsCoincide(const vector<Point>& _points);
 
 class Validator {
 public:
-    virtual void validate(vector<Point> & _points) const;
-};
-
-class FigureValidator : public Validator {
-public:
-    virtual void validate(vector<Point> & _points) const override;
+    static void validate(const vector<Point>& _points);
 };
 
 class RectangleValidator : public Validator {
 public:
-    virtual void validate(vector<Point> & _points) const override;
+    static void validate(const vector<Point>& _points);
 };
 
 class SquareValidator : public Validator {
 public:
-    virtual void validate(vector<Point> & _points) const override;
+    static void validate(const vector<Point>& _points);
 };
 
 class TrapezoidValidator : public Validator {
 public:
-    virtual void validate(vector<Point> & _points) const override;
+    static void validate(const vector<Point>& _points);
 };
-
-#endif

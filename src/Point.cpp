@@ -1,69 +1,64 @@
 // (c) anton perceptronica, 2023
 
 #include "Point.hpp"
-#include "Constants.hpp"
 
-using namespace std;
-
-Point::Point(const Point & other) : x(other.x), y(other.y) {}
-
-Point::Point(Point && other) noexcept {
+Point::Point(Point&& other) noexcept {
     x = other.x;
     y = other.y;
-
     other.x = 0;
     other.y = 0;
 }
 
-double Point::getX() const { return x; }
+Point Point::operator=(const Point& other) {
+    if (this == &other) return *this;
+    x = other.x;
+    y = other.y;
+    return *this;
+}
 
-double Point::getY() const { return y; }
+Point Point::operator=(Point&& other) noexcept {
+    if (this == &other) return *this;
+    x = other.x;
+    y = other.y;
+    other.x = 0;
+    other.y = 0;
+    return *this;
+}
 
 double Point::length() const {
     return sqrt(getX() * getX() + getY() * getY());
 }
 
-Point Point::operator+(const Point & rhs) const {
-    return {x + rhs.x, y + rhs.y};
+Point Point::operator+(const Point& other) const {
+    return {x + other.x, y + other.y};
 }
 
-Point Point::operator-(const Point & rhs) const {
-    return {x - rhs.x, y - rhs.y};
+Point Point::operator-(const Point& other) const {
+    return {x - other.x, y - other.y};
 }
 
-Point Point::operator=(const Point & rhs) {
-    x = rhs.x;
-    y = rhs.y;
-    return *this;
+bool Point::operator==(const Point& other) const {
+    return abs(x - other.x) < EPS && 
+           abs(y - other.y) < EPS;
 }
 
-Point Point::operator=(Point && rhs) {
-    x = rhs.x;
-    y = rhs.y;
-
-    rhs.x = 0;
-    rhs.y = 0;
-
-    return *this;
+istream& operator>>(istream& in, Point& r) {
+    double x_, y_;
+    in >> x_ >> y_;
+    r.setX(x_);
+    r.setY(y_);
+    return in;
 }
 
-bool Point::operator==(const Point & rhs) const {
-    return abs(x - rhs.x) < EPS && abs(y - rhs.y) < EPS; 
-}
-
-double operator*(const Point & r1, const Point & r2) {
-    return r1.getX() * r2.getX() + r1.getY() * r2.getY();
-}
-
-double operator^(const Point & r1, const Point & r2) {
-    return r1.getX() * r2.getY() - r1.getY() * r2.getX();
-}
-
-ostream & operator<<(ostream & out, const Point & r) {
+ostream& operator<<(ostream& out, const Point& r) {
     out << "(" << r.getX() << ", " << r.getY() << ")";
     return out;
 }
-istream & operator>>(istream & in, Point & r) {
-    in >> r.x >> r.y;
-    return in;
+
+double operator*(const Point& r1, const Point& r2) {
+    return r1.getX() * r2.getX() + r1.getY() * r2.getY();
+}
+
+double operator^(const Point& r1, const Point& r2) {
+    return r1.getX() * r2.getY() - r1.getY() * r2.getX();
 }

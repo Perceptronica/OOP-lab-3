@@ -1,20 +1,22 @@
 // (c) anton perceptronica, 2023
 
-#include "Rectangle.hpp"
+// (c) anton perceptronica, 2023
+
+#include "Square.hpp"
 #include <vector>
 #include "Point.hpp"
 
-Rectangle::Rectangle(vector<Point>& _points) : Rectangle(){
+Square::Square(vector<Point>& _points) : Square(){
     points.reserve(_points.size());
     points = _points;
-    type = "rectangle";
+    type = "square";
     calculateCenter();
     normalizePoints();
-    RectangleValidator::validate(points);
+    SquareValidator::validate(points);
     calculateArea();
 }
 
-Rectangle::Rectangle(const Rectangle& other) : Rectangle(){
+Square::Square(const Square& other) : Square(){
     points.reserve(other.points.size());
     points = other.points;
     center = other.center;
@@ -22,7 +24,7 @@ Rectangle::Rectangle(const Rectangle& other) : Rectangle(){
     type = other.type;
 }
 
-Rectangle::Rectangle(Rectangle&& other) noexcept : Rectangle(){
+Square::Square(Square&& other) noexcept : Square(){
     points.reserve(other.points.size());
     points = other.points;
     center = other.center;

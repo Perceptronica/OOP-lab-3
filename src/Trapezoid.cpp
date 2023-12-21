@@ -1,20 +1,22 @@
 // (c) anton perceptronica, 2023
 
-#include "Rectangle.hpp"
+// (c) anton perceptronica, 2023
+
+#include "Trapezoid.hpp"
 #include <vector>
 #include "Point.hpp"
 
-Rectangle::Rectangle(vector<Point>& _points) : Rectangle(){
+Trapezoid::Trapezoid(vector<Point>& _points) : Trapezoid(){
     points.reserve(_points.size());
     points = _points;
-    type = "rectangle";
+    type = "Trapezoid";
     calculateCenter();
     normalizePoints();
-    RectangleValidator::validate(points);
+    TrapezoidValidator::validate(points);
     calculateArea();
 }
 
-Rectangle::Rectangle(const Rectangle& other) : Rectangle(){
+Trapezoid::Trapezoid(const Trapezoid& other) : Trapezoid(){
     points.reserve(other.points.size());
     points = other.points;
     center = other.center;
@@ -22,7 +24,7 @@ Rectangle::Rectangle(const Rectangle& other) : Rectangle(){
     type = other.type;
 }
 
-Rectangle::Rectangle(Rectangle&& other) noexcept : Rectangle(){
+Trapezoid::Trapezoid(Trapezoid&& other) noexcept : Trapezoid(){
     points.reserve(other.points.size());
     points = other.points;
     center = other.center;
